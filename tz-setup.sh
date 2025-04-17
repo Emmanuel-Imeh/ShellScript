@@ -16,14 +16,16 @@ output= $(echo "Result for log: $confirmTZ" > ~/Desktop/confirmedTZ.txt)
 result=$(echo "Hello! $(whoami), you are currently in $(pwd) directory as at the above log details." >> ~/Desktop/confirmedTZ.txt)
 
 # Search for 'UTC' in the file
-checker=$(grep "UTC" ~/Desktop/confirmedTZ.txt)
+findUTC=$(grep "UTC" ~/Desktop/confirmedTZ.txt)
 
-# Check if 'UTC' was found
-if [[ -n "$checker" ]];
+# Check for 'UTC' if exist in 
+if [[ -n "$findUTC" ]];
 then
 	config=$(echo "export TZ='Africa/Lagos'" >> ~/.profile) # append the line to .profile to permanently save the Time Zone
 	if [[ -n TZ=Africa/Lagos ]]; then
 		echo "Done"
+		progressMessage="Your current time zone has been set to WAT"
+		echo "$progressMessage, Reboot your system to enable changes."
 	else
 		echo "failed to append"
 	fi
@@ -31,5 +33,3 @@ else
 	echo "Congrat! you are using WAT zone."
 fi
 echo "Process Successful!"
-progressMessage="Your current time zone in has been set to WAT"
-echo "$progressMessage, Reboot your system to activate changes."
